@@ -9,6 +9,41 @@ function togglePasswordVisibility() {
     }
 }
 
+async function createFirstAdmin(email, password) {
+    if (!email || !password) {
+        throw new Error("Email and password are required to create the first admin.");
+    }
+
+    try {
+        const adminSnapshot = await db.ref("admins").once("value");
+        const admins = adminSnapshot.val() || {};
+        const hasAdmin = Object.values(admins).some(entry => entry && entry.role === "admin");
+
+        if (hasAdmin) {
+            return { message: "An admin already exists." };
+        }
+
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        await db.ref("admins").child(userCredential.user.uid).set({ role: "admin" });
+
+        return {
+            user: userCredential.user,
+            message: "First admin account created successfully."
+        };
+    } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+            const userCredential = await auth.signInWithEmailAndPassword(email, password);
+            await db.ref("admins").child(userCredential.user.uid).set({ role: "admin" });
+            return {
+                user: userCredential.user,
+                message: "This account was reused and granted admin access."
+            };
+        }
+
+        throw error;
+    }
+}
+
 async function handleAdminLogin(event) {
     if (event) event.preventDefault();
 
