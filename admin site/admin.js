@@ -44,6 +44,10 @@ async function createFirstAdmin(email, password) {
     }
 }
 
+// createFirstAdmin("hamza@admin.com","Admin@123")
+
+
+
 async function handleAdminLogin(event) {
     if (event) event.preventDefault();
 
