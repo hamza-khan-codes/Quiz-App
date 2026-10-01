@@ -1,12 +1,13 @@
 // Centralized Firebase Configuration & Utilities for Admin Portal
 const firebaseConfig = {
-    apiKey: "AIzaSyBw8pAT_2oOCQ5jSERPpbaqgV0NcSwEG4c",
-    authDomain: "quiz-app-a7554.firebaseapp.com",
-    databaseURL: "https://quiz-app-a7554-default-rtdb.firebaseio.com",
-    projectId: "quiz-app-a7554",
-    storageBucket: "quiz-app-a7554.firebasestorage.app",
-    messagingSenderId: "1035498201773",
-    appId: "1:1035498201773:web:50032abad26f52a8ff5c24"
+    apiKey: "AIzaSyAakkfBG0zSfVLFp6RdcLMabkDWB2Do66I",
+    authDomain: "quiz-98a65.firebaseapp.com",
+    databaseURL: "https://quiz-98a65-default-rtdb.firebaseio.com",
+    projectId: "quiz-98a65",
+    storageBucket: "quiz-98a65.firebasestorage.app",
+    messagingSenderId: "1083086178682",
+    appId: "1:1083086178682:web:232bd13dc6a8802ec56ec3",
+    measurementId: "G-XT6GXYD3RN"
 };
 
 // Initialize Firebase if not already initialized
