@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Quiz | SMIT QuizPortal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="app-navbar">
+        <a href="dashboard.html" class="brand-link">
+            <div class="brand-badge">🎓</div>
+            <div class="brand-title">SMIT <span>QuizPortal</span></div>
+        </a>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <a href="dashboard.html" class="btn btn-secondary btn-sm">← Exit to Dashboard</a>
+        </div>
+    </nav>
+
+    <!-- Quiz Player Container -->
+    <div class="quiz-container">
+
+        <!-- Active Quiz Player Card -->
+        <div class="quiz-player-card" id="quizCard">
+            <!-- Header -->
+            <div class="quiz-player-header">
+                <div class="quiz-title-badge">
+                    <h2 id="quizTitleDisplay">Quiz Title</h2>
+                    <span id="quizCourseDisplay">Course Subject</span>
+                </div>
+                <div class="quiz-timer-pill" id="timerPill">
+                    <span>⏱️</span>
+                    <span id="timerText">05:00</span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="quiz-progress-bar-container">
+                <div class="quiz-progress-fill" id="quizProgressBar"></div>
+            </div>
+
+            <!-- Question Body Area -->
+            <div class="quiz-content-area" id="quizContentArea">
+                <div class="question-counter-label" id="questionCounter">
+                    Question 1 of 1
+                </div>
+
+                <h3 class="question-text-title" id="questionTitle">
+                    Loading question...
+                </h3>
+
+                <!-- Options List -->
+                <ul class="quiz-options-list" id="optionsContainer">
+                    <!-- Populated dynamically -->
+                </ul>
+
+                <!-- Bottom Actions -->
+                <div class="quiz-action-bar">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="goToPreviousQuestion()" style="display: none;">
+                        ← Previous
+                    </button>
+                    <div style="flex: 1;"></div>
+                    <button class="btn btn-primary" id="nextBtn" onclick="handleNextOrSubmit()" disabled>
+                        Next Question →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result View (Hidden initially) -->
+        <div class="result-card" id="resultCard" style="display: none;">
+            <div class="result-icon" id="resultEmoji">🎉</div>
+            <h2 id="resultHeading">Quiz Completed!</h2>
+            <p id="resultSubheading" style="color: #64748b; font-size: 14px;">Here is your assessment scorecard</p>
+
+            <div class="result-score-circle">
+                <div class="number" id="resultPercentage">0%</div>
+                <div class="label" id="resultGradeLabel">Score</div>
+            </div>
+
+            <div class="result-metrics-grid">
+                <div class="result-metric-box">
+                    <span>Total Questions</span>
+                    <strong id="resultTotal">0</strong>
+                </div>
+                <div class="result-metric-box">
+                    <span>Correct</span>
+                    <strong id="resultCorrect" style="color: #10b981;">0</strong>
+                </div>
+                <div class="result-metric-box">
+                    <span>Incorrect</span>
+                    <strong id="resultWrong" style="color: #ef4444;">0</strong>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: 14px; margin-bottom: 24px; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="toggleAnswerReview()">
+                    📝 Review Answers
+                </button>
+                <button class="btn btn-primary" onclick="window.location.href='dashboard.html'">
+                    🏠 Return to Dashboard
+                </button>
+                <button class="btn btn-outline-primary" onclick="location.reload()">
+                    🔄 Retake Quiz
+                </button>
+            </div>
+
+            <!-- Review Answers Accordion -->
+            <div class="review-container" id="reviewContainer" style="display: none;">
+                <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px; color: #0f172a;">Detailed Answer Review</h3>
+                <div id="reviewList"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Selector (Shown if no quizKey specified in URL) -->
+        <div class="quiz-player-card" id="quizPickerCard" style="display: none; padding: 36px; text-align: center;">
+            <div style="font-size: 48px; margin-bottom: 12px;">📚</div>
+            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Select a Quiz to Start</h2>
+            <p style="color: #64748b; margin-bottom: 24px; font-size: 14px;">Choose from our active question banks</p>
+            <div class="form-group" style="max-width: 400px; margin: 0 auto 20px;">
+                <select class="form-select" id="directQuizSelect">
+                    <option value="" disabled selected>Loading available quizzes...</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="startSelectedQuiz()">Launch Selected Quiz</button>
+        </div>
+
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <!-- App Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
+

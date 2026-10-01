@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration | Quiz Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="auth-page">
+        <div class="auth-card-student">
+            <div class="auth-hero">
+                <div class="logo">🎓</div>
+                <h2>Student Registration</h2>
+                <p>Create your student account to enroll in courses and take quizzes</p>
+            </div>
+
+            <div class="auth-content">
+                <form id="studentSignupForm" onsubmit="handleStudentSignup(event)">
+                    <!-- Profile Photo Upload -->
+                    <div class="avatar-upload-box">
+                        <img id="avatarPreview" class="avatar-preview" src="https://api.dicebear.com/7.x/initials/svg?seed=Student" alt="Preview">
+                        <label class="avatar-upload-label" for="imageUpload">
+                            📷 Upload Student Photo
+                        </label>
+                        <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="previewSelectedImage(event)">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="name">Full Name *</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">👤</span>
+                            <input type="text" class="form-control" id="name" placeholder="John Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address *</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">✉️</span>
+                            <input type="email" class="form-control" id="email" placeholder="student@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="passwordGroup">
+                        <label class="form-label" for="password">Password *</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" class="form-control" id="password" placeholder="Min. 6 characters" minlength="6" required>
+                            <button type="button" class="toggle-pw" onclick="togglePasswordVisibility()">👁️</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="courseSelect">Enrolled Course *</label>
+                        <select class="form-select" id="courseSelect" required>
+                            <option value="" disabled selected>Loading courses...</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="signupBtn" style="margin-top: 10px;">
+                        <span>Complete Registration</span>
+                    </button>
+                    <div class="auth-divider"><span>or</span></div>
+                    <button type="button" class="btn btn-google btn-block" id="googleSignupBtn" onclick="handleStudentGoogleSignIn()">
+                        <span class="google-mark" aria-hidden="true">G</span> Sign up with Google
+                    </button>
+                </form>
+
+                <div class="auth-footer-link">
+                    Already registered? <a href="login.html">Sign In here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <!-- App Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="signUp.js"></script>
+
+</body>
+</html>

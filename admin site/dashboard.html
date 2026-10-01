@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#17312d">
+    <title>Overview | Quiz Admin</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <a class="brand" href="dashboard.html" style="text-decoration:none;">
+                <span class="brand-icon">Q</span>
+                <span class="brand-text"><h2>Quiz Portal</h2><span>Administration</span></span>
+            </a>
+            <div class="nav-label">Workspace</div>
+            <ul class="sidebar-menu">
+                <li><a class="active" href="dashboard.html"><span class="icon">▦</span><span>Overview</span></a></li>
+                <li><a href="courses.html"><span class="icon">▤</span><span>Courses</span></a></li>
+                <li><a href="quiz.html"><span class="icon">✓</span><span>Quizzes</span></a></li>
+                <li><a href="students.html"><span class="icon">♙</span><span>Students</span></a></li>
+            </ul>
+            <div class="sidebar-footer"><ul class="sidebar-menu"><li><a href="javascript:void(0)" onclick="adminLogout()"><span class="icon">↪</span><span>Sign out</span></a></li></ul></div>
+        </aside>
+        <div class="admin-main">
+            <header class="topbar">
+                <div class="topbar-title"><h1>Overview</h1><p>Live activity across your learning portal</p></div>
+                <div class="topbar-actions">
+                    <div class="admin-badge"><span class="avatar">A</span><span id="adminNameDisplay">Administrator</span></div>
+                    <button class="btn btn-secondary btn-sm" onclick="adminLogout()">Sign out</button>
+                </div>
+            </header>
+            <main class="content-area">
+                <section class="metrics-grid" aria-label="Portal metrics">
+                    <article class="metric-card"><div class="metric-info"><h3>Students</h3><div class="number" id="totalstd">0</div><span class="trend">Registered accounts</span></div><div class="metric-icon-wrap icon-blue">♙</div></article>
+                    <article class="metric-card"><div class="metric-info"><h3>Courses</h3><div class="number" id="totalCourse">0</div><span class="trend">Available programs</span></div><div class="metric-icon-wrap icon-emerald">▤</div></article>
+                    <article class="metric-card"><div class="metric-info"><h3>Quizzes</h3><div class="number" id="totalQuiz">0</div><span class="trend">Published assessments</span></div><div class="metric-icon-wrap icon-indigo">✓</div></article>
+                    <article class="metric-card"><div class="metric-info"><h3>Questions</h3><div class="number" id="totalQuestions">0</div><span class="trend">Across quiz banks</span></div><div class="metric-icon-wrap icon-purple">?</div></article>
+                    <article class="metric-card"><div class="metric-info"><h3>Attempts</h3><div class="number" id="totalAttempts">0</div><span class="trend">Submitted scorecards</span></div><div class="metric-icon-wrap icon-amber">↗</div></article>
+                </section>
+                <section class="card-box">
+                    <div class="card-header-bar"><div><h2>Recent quiz attempts</h2><p>Latest student scorecards</p></div><a class="btn btn-secondary btn-sm" href="students.html">View students</a></div>
+                    <div class="table-responsive"><table class="custom-table"><thead><tr><th>Student</th><th>Assessment</th><th>Course</th><th>Score</th><th>Result</th><th>Status</th><th>Date</th></tr></thead><tbody id="recentSubmissionsTable"><tr><td colspan="7" class="empty-placeholder">Loading attempts...</td></tr></tbody></table></div>
+                </section>
+                <section class="card-box">
+                    <div class="card-header-bar"><div><h2>Recently registered</h2><p>Newest student accounts</p></div><a class="btn btn-secondary btn-sm" href="students.html">Student directory</a></div>
+                    <div class="table-responsive"><table class="custom-table"><thead><tr><th>#</th><th>Student</th><th>Email</th><th>Course</th><th>Joined</th></tr></thead><tbody id="recentStudentsTable"><tr><td colspan="5" class="empty-placeholder">Loading students...</td></tr></tbody></table></div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

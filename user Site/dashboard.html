@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | SMIT Quiz Hub</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- QR Code Generator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- HTML2Canvas & jsPDF for Digital ID Card Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <!-- App Navigation Bar -->
+    <nav class="app-navbar">
+        <a href="dashboard.html" class="brand-link">
+            <div class="brand-badge">🎓</div>
+            <div class="brand-title">SMIT <span>QuizPortal</span></div>
+        </a>
+
+        <div class="user-profile-nav">
+            <img id="topNavAvatar" class="nav-avatar" src="https://api.dicebear.com/7.x/initials/svg?seed=Student" alt="User">
+            <div class="nav-user-info">
+                <span class="nav-user-name" id="topNavName">Student</span>
+                <span class="nav-user-role" id="topNavCourse">Student</span>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="studentLogout()">Sign Out</button>
+        </div>
+    </nav>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-header">
+        <button class="tab-btn active" id="tabQuizzesBtn" onclick="switchTab('quizzes')">
+            <span>📝</span> Available Quizzes
+        </button>
+        <button class="tab-btn" id="tabIdCardBtn" onclick="switchTab('idcard')">
+            <span>🪪</span> Student ID Card
+        </button>
+        <button class="tab-btn" id="tabResultsBtn" onclick="switchTab('results')">
+            <span>📊</span> My Test Results
+        </button>
+    </div>
+
+    <!-- Main Wrapper -->
+    <main class="main-wrapper">
+
+        <!-- TAB 1: Available Quizzes -->
+        <section id="quizzesSection">
+            <div style="margin-bottom: 24px;">
+                <h2 style="font-size: 22px; font-weight: 800; color: #0f172a;">Active Quizzes</h2>
+                <p style="font-size: 14px; color: #64748b;">Select an assessment to test your knowledge</p>
+            </div>
+
+            <div class="quizzes-grid" id="quizzesContainer">
+                <div style="grid-column: 1 / -1; text-align: center; padding: 48px 0; color: #94a3b8;">
+                    <div style="font-size: 36px; margin-bottom: 8px;">⏳</div>
+                    <h4>Loading available quizzes...</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: Student ID Card -->
+        <section id="idcardSection" style="display: none;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="font-size: 22px; font-weight: 800; color: #0f172a;">Digital Student ID Card</h2>
+                <p style="font-size: 14px; color: #64748b;">Official verifiable credential generated for Saylani Mass IT Training</p>
+            </div>
+
+            <div class="id-card-wrapper">
+                <div class="id-card" id="studentIdCard">
+                    <!-- Header -->
+                    <div class="id-card-header">
+                        <div class="id-card-logo">SMIT</div>
+                        <div class="id-card-header-text">
+                            <h2>SMIT Institute</h2>
+                            <p>STUDENT IDENTITY CARD</p>
+                        </div>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="id-card-body">
+                        <!-- Student Photo -->
+                        <img id="cardStudentImage" class="id-student-photo" src="https://api.dicebear.com/7.x/initials/svg?seed=Student" alt="Student Photo">
+
+                        <!-- Student Details -->
+                        <div class="id-student-info">
+                            <h3 id="cardStudentName">Student Name</h3>
+                            <div class="id-role-tag" id="cardCourseTag">Student</div>
+
+                            <div class="id-detail-row">
+                                <label>Email Address</label>
+                                <span id="cardStudentEmail">student@example.com</span>
+                            </div>
+
+                            <div class="id-detail-row">
+                                <label>Enrolled Program</label>
+                                <span id="cardStudentCourse">Web Development</span>
+                            </div>
+
+                            <div class="id-detail-row">
+                                <label>Student ID</label>
+                                <span id="cardStudentUid">SMIT-00000</span>
+                            </div>
+                        </div>
+
+                        <!-- QR Code Section -->
+                        <div class="id-qr-box">
+                            <div id="qrcode"></div>
+                            <p>Scan to verify<br>student identity</p>
+                            <div class="id-verified-badge">✓ VERIFIED</div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="id-card-footer">
+                        <div>Property of <span>SMIT Pakistan</span></div>
+                        <div id="cardFooterId">SMIT-2026-VERIFIED</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-primary" onclick="downloadIdCardPdf()">
+                        📥 Download ID Card (PDF)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: My Results -->
+        <section id="resultsSection" style="display: none;">
+            <div style="margin-bottom: 24px;">
+                <h2 style="font-size: 22px; font-weight: 800; color: #0f172a;">My Quiz Performance</h2>
+                <p style="font-size: 14px; color: #64748b;">Record of your completed assessments and scores</p>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+                                <th style="padding: 14px 20px; font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase;">#</th>
+                                <th style="padding: 14px 20px; font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase;">Quiz Title</th>
+                                <th style="padding: 14px 20px; font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase;">Course</th>
+                                <th style="padding: 14px 20px; font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase;">Score</th>
+                                <th style="padding: 14px 20px; font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase;">Percentage</th>
+                                <th style="padding: 14px 20px; font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase;">Status</th>
+                                <th style="padding: 14px 20px; font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase;">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentResultsTableBody">
+                            <tr>
+                                <td colspan="7" style="padding: 40px; text-align: center; color: #94a3b8;">
+                                    <div style="font-size: 32px; margin-bottom: 8px;">📊</div>
+                                    <h4>Loading your quiz history...</h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <!-- App Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="dashboard.js"></script>
+
+</body>
+</html>

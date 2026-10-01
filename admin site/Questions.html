@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#17312d">
+    <title>Question Bank | Quiz Admin</title>
+    <link rel="stylesheet" href="admin-style.css">
+    <style>
+        .question-options-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 16px; }
+        .question-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+        @media(max-width:600px) { .question-options-grid { grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <a class="brand" href="dashboard.html" style="text-decoration:none;"><span class="brand-icon">Q</span><span class="brand-text"><h2>Quiz Portal</h2><span>Administration</span></span></a>
+            <div class="nav-label">Workspace</div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html"><span class="icon">▦</span><span>Overview</span></a></li>
+                <li><a href="courses.html"><span class="icon">▤</span><span>Courses</span></a></li>
+                <li><a class="active" href="quiz.html"><span class="icon">✓</span><span>Quizzes</span></a></li>
+                <li><a href="students.html"><span class="icon">♙</span><span>Students</span></a></li>
+            </ul>
+            <div class="sidebar-footer"><ul class="sidebar-menu"><li><a href="javascript:void(0)" onclick="adminLogout()"><span class="icon">↪</span><span>Sign out</span></a></li></ul></div>
+        </aside>
+        <div class="admin-main">
+            <header class="topbar"><div class="topbar-title"><h1>Question bank</h1><p id="questionQuizTitle">Manage questions for this assessment</p></div><div class="topbar-actions"><a href="quiz.html" class="btn btn-secondary btn-sm">Back to quizzes</a><button class="btn btn-secondary btn-sm" onclick="adminLogout()">Sign out</button></div></header>
+            <main class="content-area">
+                <section class="card-box">
+                    <div class="card-header-bar"><div><h2>Add a question</h2><p>Four choices and one correct answer</p></div></div>
+                    <form id="questionForm" style="padding:22px 24px;" onsubmit="handleAddQuestion(event)">
+                        <div class="form-group"><label class="form-label" for="questionText">Question</label><textarea class="form-control" id="questionText" rows="3" maxlength="500" placeholder="Write a clear question" required></textarea></div>
+                        <div class="question-options-grid">
+                            <div class="form-group"><label class="form-label" for="option1">Choice A</label><input class="form-control question-option" id="option1" maxlength="180" required></div>
+                            <div class="form-group"><label class="form-label" for="option2">Choice B</label><input class="form-control question-option" id="option2" maxlength="180" required></div>
+                            <div class="form-group"><label class="form-label" for="option3">Choice C</label><input class="form-control question-option" id="option3" maxlength="180" required></div>
+                            <div class="form-group"><label class="form-label" for="option4">Choice D</label><input class="form-control question-option" id="option4" maxlength="180" required></div>
+                        </div>
+                        <div class="form-group" style="max-width:360px;"><label class="form-label" for="correctAnswer">Correct choice</label><select class="form-select" id="correctAnswer"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select></div>
+                        <button type="submit" class="btn btn-primary" id="saveQuestionBtn">Add question</button>
+                    </form>
+                </section>
+                <section class="card-box">
+                    <div class="card-header-bar question-toolbar"><div><h2>Questions</h2><p id="questionCountLabel">Loading question bank...</p></div></div>
+                    <div class="table-responsive"><table class="custom-table"><thead><tr><th>#</th><th>Question</th><th>Choices</th><th>Answer</th><th>Actions</th></tr></thead><tbody id="courseTable"><tr><td colspan="5" class="empty-placeholder">Loading questions...</td></tr></tbody></table></div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="Questions.js"></script>
+</body>
+</html>

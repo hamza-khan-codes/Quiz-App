@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Directory | Quiz Admin</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+
+    <div class="admin-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">🎓</div>
+                <div class="brand-text">
+                    <h2>QuizAdmin</h2>
+                    <span>Portal Control</span>
+                </div>
+            </div>
+
+            <div class="nav-label">Main Menu</div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html"><span class="icon">🏠</span> <span>Dashboard</span></a></li>
+                <li><a href="courses.html"><span class="icon">📚</span> <span>Courses</span></a></li>
+                <li><a href="quiz.html"><span class="icon">📝</span> <span>Quizzes</span></a></li>
+                <li><a href="students.html" class="active"><span class="icon">👨‍🎓</span> <span>Students</span></a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <ul class="sidebar-menu">
+                    <li><a href="javascript:void(0)" onclick="adminLogout()"><span class="icon">🚪</span> <span>Sign Out</span></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="admin-main">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-title">
+                    <h1>Student Directory</h1>
+                    <p>Registered students, profiles, and performance history</p>
+                </div>
+                <div class="topbar-actions">
+                    <button class="btn btn-secondary btn-sm" onclick="adminLogout()">Sign Out</button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="content-area">
+                <div class="card-box">
+                    <div class="card-header-bar">
+                        <div style="flex:1;">
+                            <h2>All Registered Students</h2>
+                            <p id="studentCountLabel">Showing all active student accounts</p>
+                        </div>
+                        <div style="width: 280px;">
+                            <input type="text" class="form-control" id="studentSearchInput" placeholder="🔍 Search by name or email..." oninput="filterStudents()">
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Student</th>
+                                    <th>Email</th>
+                                    <th>Enrolled Course</th>
+                                    <th>Joined Date</th>
+                                    <th>Quiz Attempts</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr>
+                                    <td colspan="6" class="empty-placeholder">
+                                        <span class="icon">⏳</span>
+                                        <h4>Loading student directory...</h4>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <!-- App Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="students.js"></script>
+
+</body>
+</html>
+

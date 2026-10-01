@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:,">
+
+    <title>SMIT Quiz System | Portal Directory</title>
+
+    <link rel="stylesheet" href="user Site/style.css">
+
+    <style>
+        #MainCard {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .portal-landing {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: radial-gradient(ellipse at 10% 0%, #dcefe5, transparent 34rem), #f4f7f3;
+            color: #17312d;
+        }
+
+        #TotalQuestion {
+            text-align: right;
+            display: block;
+            margin-right: 30px;
+            margin-top: 30px;
+        }
+
+        .portal-card {
+            background: #ffffff;
+            color: #0f172a;
+            border-radius: 10px;
+            box-shadow: 0 22px 55px rgba(23, 49, 45, 0.13);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .portal-header {
+            background: #17312d;
+            color: #ffffff;
+            padding: 40px;
+            text-align: center;
+        }
+
+        #btn1 {
+            text-align: right;
+        }
+
+        .portal-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        #btn1 > button {
+            background-color: brown;
+            color: white;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            padding: 40px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .portal-choice-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 28px;
+            text-align: center;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .portal-choice-card:hover {
+            border-color: #79b8a6;
+            background: #f1f8f4;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(19, 117, 103, 0.12);
+        }
+
+        .portal-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .portal-choice-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .portal-choice-card p {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 680px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+                padding: 24px;
+            }
+
+            .portal-header {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="portal-landing">
+
+        <div class="portal-card">
+
+            <!-- Header -->
+            <div class="portal-header">
+
+                <div style="font-size: 40px; margin-bottom: 8px;">
+                    🎓
+                </div>
+
+                <h1>SMIT Online Quiz & Student System</h1>
+
+                <p>
+                    Built with Vanilla JavaScript, HTML5, CSS3 & Firebase Realtime Database
+                </p>
+
+            </div>
+
+            <!-- Main Card -->
+            <div id="MainCard">
+
+                <b id="TotalQuestion"></b>
+
+                <b id="timer"></b>
+
+                <div id="container">
+
+                    <div class="portal-grid">
+
+                        <!-- Student Portal -->
+                        <div class="portal-choice-card">
+
+                            <div>
+
+                                <div class="portal-icon">
+                                    👨‍🎓
+                                </div>
+
+                                <h3>
+                                    Student Portal
+                                </h3>
+
+                                <p>
+                                    Take live quizzes, view verified Student ID Card
+                                    with QR code, and track test performance history.
+                                </p>
+
+                            </div>
+
+                            <div
+                                style="
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 8px;
+                                "
+                            >
+
+                                <a
+                                    href="user Site/login.html"
+                                    class="btn btn-primary btn-block"
+                                >
+                                    Sign In as Student
+                                </a>
+
+                                <a
+                                    href="user Site/signup.html"
+                                    class="btn btn-secondary btn-block"
+                                >
+                                    Register New Account
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Admin Portal -->
+                        <div class="portal-choice-card">
+
+                            <div>
+
+                                <div class="portal-icon">
+                                    🛡️
+                                </div>
+
+                                <h3>
+                                    Admin Control Panel
+                                </h3>
+
+                                <p>
+                                    Manage training courses, create quizzes,
+                                    configure question banks, and review
+                                    student scorecards.
+                                </p>
+
+                            </div>
+
+                            <div
+                                style="
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 8px;
+                                "
+                            >
+
+                                <a
+                                    href="admin site/admin.html"
+                                    class="btn btn-primary btn-block"
+                                    style="background: #0f172a;"
+                                >
+                                    Admin Login Portal
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Result -->
+            <div
+                id="result"
+                style="display: none;"
+            >
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
